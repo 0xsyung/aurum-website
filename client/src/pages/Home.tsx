@@ -49,6 +49,13 @@ export default function Home() {
             >
               Join Waitlist
             </Button>
+            <Button
+              size="sm"
+              className="bg-accent hover:bg-accent/90 text-accent-foreground"
+              onClick={() => window.open('https://aurum-app.pages.dev', '_blank')}
+            >
+              Launch App <ArrowRight className="ml-1 w-3 h-3" />
+            </Button>
           </div>
         </div>
       </nav>
@@ -85,8 +92,12 @@ export default function Home() {
               >
                 Get Early Access <ArrowRight className="ml-2 w-4 h-4" />
               </Button>
-              <Button variant="outline" size="lg">
-                Learn More
+              <Button
+                variant="outline"
+                size="lg"
+                onClick={() => window.open('https://aurum-app.pages.dev', '_blank')}
+              >
+                Launch App <ArrowRight className="ml-2 w-4 h-4" />
               </Button>
             </div>
           </div>
