@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, TrendingUp, Lock, Zap, Globe } from "lucide-react";
+import { ArrowRight, TrendingUp, Lock, Zap, Globe, Rocket } from "lucide-react";
 import { useState } from "react";
 
 /**
@@ -8,6 +8,9 @@ import { useState } from "react";
  * Color Palette: Deep Navy (#0F1729), Amber Gold (#FFB81C), Off-white (#FAFBFC)
  * Typography: Poppins (headlines), Inter (body)
  */
+
+// Get dApp URL from environment variable, fallback to localhost for development
+const DAPP_URL = import.meta.env.VITE_DAPP_URL || "http://localhost:5173";
 
 export default function Home() {
   const [email, setEmail] = useState("");
@@ -20,6 +23,10 @@ export default function Home() {
       setEmail("");
       setTimeout(() => setSubmitted(false), 3000);
     }
+  };
+
+  const handleLaunchApp = () => {
+    window.open(DAPP_URL, "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -43,11 +50,12 @@ export default function Home() {
               Vision
             </a>
             <Button
-              variant="outline"
               size="sm"
-              onClick={() => document.getElementById("cta")?.scrollIntoView({ behavior: "smooth" })}
+              className="bg-accent hover:bg-accent/90 text-accent-foreground"
+              onClick={handleLaunchApp}
             >
-              Join Waitlist
+              <Rocket className="mr-2 w-4 h-4" />
+              Launch App
             </Button>
           </div>
         </div>
@@ -81,12 +89,17 @@ export default function Home() {
               <Button
                 size="lg"
                 className="bg-accent hover:bg-accent/90 text-accent-foreground"
+                onClick={handleLaunchApp}
+              >
+                <Rocket className="mr-2 w-5 h-5" />
+                Launch App
+              </Button>
+              <Button
+                variant="outline"
+                size="lg"
                 onClick={() => document.getElementById("cta")?.scrollIntoView({ behavior: "smooth" })}
               >
-                Get Early Access <ArrowRight className="ml-2 w-4 h-4" />
-              </Button>
-              <Button variant="outline" size="lg">
-                Learn More
+                Join Waitlist <ArrowRight className="ml-2 w-4 h-4" />
               </Button>
             </div>
           </div>
@@ -215,28 +228,43 @@ export default function Home() {
             className="text-4xl font-bold mb-4"
             style={{ fontFamily: "Poppins" }}
           >
-            Coming Soon
+            Ready to Trade?
           </h2>
           <p className="text-lg mb-8 opacity-90">
-            Join our waitlist to be among the first to access Aurum Labs when we launch.
+            Launch the app to start trading on prediction markets, or join our waitlist for updates.
           </p>
 
-          <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3">
-            <input
-              type="email"
-              placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="flex-1 px-4 py-3 rounded-lg bg-primary-foreground text-primary placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent"
-              required
-            />
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
             <Button
-              type="submit"
-              className="bg-accent hover:bg-accent/90 text-accent-foreground px-8"
+              size="lg"
+              className="bg-accent hover:bg-accent/90 text-accent-foreground"
+              onClick={handleLaunchApp}
             >
-              {submitted ? "✓ Subscribed" : "Subscribe"}
+              <Rocket className="mr-2 w-5 h-5" />
+              Launch App
             </Button>
-          </form>
+          </div>
+
+          <div className="border-t border-primary-foreground/20 pt-8 mt-8">
+            <p className="text-sm mb-4 opacity-80">Or subscribe for updates:</p>
+            <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+              <input
+                type="email"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="flex-1 px-4 py-3 rounded-lg bg-primary-foreground text-primary placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent"
+                required
+              />
+              <Button
+                type="submit"
+                variant="outline"
+                className="border-primary-foreground/50 text-primary-foreground hover:bg-primary-foreground/10 px-8"
+              >
+                {submitted ? "✓ Subscribed" : "Subscribe"}
+              </Button>
+            </form>
+          </div>
 
           {submitted && (
             <p className="mt-4 text-sm text-primary-foreground/80">
@@ -261,15 +289,15 @@ export default function Home() {
             <div>
               <h4 className="font-semibold text-sm mb-4">Product</h4>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><a href="#" className="hover:text-accent transition-colors">Features</a></li>
-                <li><a href="#" className="hover:text-accent transition-colors">Pricing</a></li>
+                <li><a href="#features" className="hover:text-accent transition-colors">Features</a></li>
+                <li><button onClick={handleLaunchApp} className="hover:text-accent transition-colors">Launch App</button></li>
                 <li><a href="#" className="hover:text-accent transition-colors">Roadmap</a></li>
               </ul>
             </div>
             <div>
               <h4 className="font-semibold text-sm mb-4">Company</h4>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><a href="#" className="hover:text-accent transition-colors">About</a></li>
+                <li><a href="#vision" className="hover:text-accent transition-colors">About</a></li>
                 <li><a href="#" className="hover:text-accent transition-colors">Blog</a></li>
                 <li><a href="#" className="hover:text-accent transition-colors">Careers</a></li>
               </ul>
