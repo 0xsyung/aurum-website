@@ -55,11 +55,10 @@ jobs:
       - name: Type check
         run: pnpm run type-check || true
 
-      - name: ENV VAR DEBUG
-        run: echo "VITE_DAPP_URL is $VITE_DAPP_URL"
-
       - name: Build
-        run: pnpm run build
+        run: |
+          echo "VITE_DAPP_URL is $VITE_DAPP_URL"
+          pnpm run build
         env:
           VITE_DAPP_URL: ${{ vars.VITE_DAPP_URL || 'http://localhost:5173' }}
 
