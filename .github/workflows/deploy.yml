@@ -55,6 +55,9 @@ jobs:
       - name: Type check
         run: pnpm run type-check || true
 
+      - name: ENV VAR DEBUG
+        run: echo "VITE_DAPP_URL is $VITE_DAPP_URL"
+
       - name: Build
         run: pnpm run build
         env:
