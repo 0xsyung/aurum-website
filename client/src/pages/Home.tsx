@@ -56,13 +56,18 @@ export default function Home() {
             >
               Join Waitlist
             </Button>
-            <Button
-              size="sm"
-              className="bg-accent hover:bg-accent/90 text-accent-foreground"
-              onClick={() => window.open('https://aurum-app.pages.dev', '_blank')}
+            <a
+              href={import.meta.env.VITE_DAPP_URL || 'https://aurum-app.pages.dev'}
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              Launch App <ArrowRight className="ml-1 w-3 h-3" />
-            </Button>
+              <Button
+                size="sm"
+                className="bg-accent hover:bg-accent/90 text-accent-foreground"
+              >
+                Launch App <ArrowRight className="ml-1 w-3 h-3" />
+              </Button>
+            </a>
           </div>
         </div>
       </nav>
