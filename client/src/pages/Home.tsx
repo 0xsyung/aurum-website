@@ -50,12 +50,18 @@ export default function Home() {
               Vision
             </a>
             <Button
+              variant="outline"
+              size="sm"
+              onClick={() => document.getElementById("cta")?.scrollIntoView({ behavior: "smooth" })}
+            >
+              Join Waitlist
+            </Button>
+            <Button
               size="sm"
               className="bg-accent hover:bg-accent/90 text-accent-foreground"
-              onClick={handleLaunchApp}
+              onClick={() => window.open('https://aurum-app.pages.dev', '_blank')}
             >
-              <Rocket className="mr-2 w-4 h-4" />
-              Launch App
+              Launch App <ArrowRight className="ml-1 w-3 h-3" />
             </Button>
           </div>
         </div>
@@ -99,7 +105,14 @@ export default function Home() {
                 size="lg"
                 onClick={() => document.getElementById("cta")?.scrollIntoView({ behavior: "smooth" })}
               >
-                Join Waitlist <ArrowRight className="ml-2 w-4 h-4" />
+                Get Early Access <ArrowRight className="ml-2 w-4 h-4" />
+              </Button>
+              <Button
+                variant="outline"
+                size="lg"
+                onClick={() => window.open('https://aurum-app.pages.dev', '_blank')}
+              >
+                Launch App <ArrowRight className="ml-2 w-4 h-4" />
               </Button>
             </div>
           </div>
