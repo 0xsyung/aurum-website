@@ -1,12 +1,36 @@
 # Aurum Labs Website
 
-Landing page for Aurum Labs.
+Marketing site for Aurum Labs. Serves a static landing page through a small Express server.
 
 ## Status
 
-- Static marketing site
-- Served by a small Express server (see `server/index.ts`)
-- `VITE_DAPP_URL` controls the “Launch App” button
+- ✅ Landing page implemented
+- ✅ Express server for static hosting
+- ✅ Launch App URL configurable via `VITE_DAPP_URL`
+
+## Structure
+
+```
+client/
+  src/
+    components/       # UI components
+    pages/            # Page sections
+  public/
+server/
+  index.ts            # Express static server
+shared/
+```
+
+## Features (Current)
+
+- Hero + product messaging
+- Launch App CTA
+- Responsive layout
+
+## Features (Planned)
+
+- Waitlist form integration
+- Analytics hooks
 
 ## Tech Stack
 
@@ -37,12 +61,5 @@ pnpm run build
 
 ## Deployment
 
-- Static hosting: Cloudflare Pages (output `dist/public`)
-- Full server: Render (build `pnpm run build`, start `pnpm run start`)
-
-## Related Repositories
-
-- `aurum-app` (UI prototype)
-- `aurum-contracts` (ConditionalTokens prototype)
-- `aurum-backend` (placeholder)
-- `aurum-docs` (documentation)
+- Static hosting: Cloudflare Pages (`dist/public`)
+- Full server: Render (`pnpm run start`)
