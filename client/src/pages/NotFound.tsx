@@ -1,21 +1,26 @@
+// 404 page with a simple route back to home.
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { AlertCircle, Home } from "lucide-react";
 import { useLocation } from "wouter";
 
 export default function NotFound() {
+  // Wouter location setter for client-side navigation.
   const [, setLocation] = useLocation();
 
   const handleGoHome = () => {
+    // Redirect to the root route.
     setLocation("/");
   };
 
   return (
+    // Centered card with gradient background.
     <div className="min-h-screen w-full flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100">
       <Card className="w-full max-w-lg mx-4 shadow-lg border-0 bg-white/80 backdrop-blur-sm">
         <CardContent className="pt-8 pb-8 text-center">
           <div className="flex justify-center mb-6">
             <div className="relative">
+              {/* Pulsing background + icon for visual feedback */}
               <div className="absolute inset-0 bg-red-100 rounded-full animate-pulse" />
               <AlertCircle className="relative h-16 w-16 text-red-500" />
             </div>
