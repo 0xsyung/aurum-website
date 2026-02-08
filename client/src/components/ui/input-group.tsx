@@ -1,3 +1,4 @@
+// UI primitive wrapper for input group.
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 
