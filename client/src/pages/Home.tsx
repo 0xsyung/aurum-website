@@ -1,3 +1,4 @@
+// Marketing landing page for Aurum Labs.
 import { Button } from "@/components/ui/button";
 import { ArrowRight, TrendingUp, Lock, Zap, Globe, Rocket } from "lucide-react";
 import { useState } from "react";
@@ -13,10 +14,12 @@ import { useState } from "react";
 const DAPP_URL = import.meta.env.VITE_DAPP_URL || "http://localhost:5173";
 
 export default function Home() {
+  // Local state for waitlist input and temporary feedback.
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
   const handleSubscribe = (e: React.FormEvent) => {
+    // Keep the form from navigating and show a transient success state.
     e.preventDefault();
     if (email) {
       setSubmitted(true);
@@ -26,6 +29,7 @@ export default function Home() {
   };
 
   const handleLaunchApp = () => {
+    // Open the dApp in a new tab with safe window features.
     window.open(DAPP_URL, "_blank", "noopener,noreferrer");
   };
 
@@ -56,13 +60,18 @@ export default function Home() {
             >
               Join Waitlist
             </Button>
-            <Button
-              size="sm"
-              className="bg-accent hover:bg-accent/90 text-accent-foreground"
-              onClick={() => window.open('https://aurum-app.pages.dev', '_blank')}
+            <a
+              href={import.meta.env.VITE_DAPP_URL || 'https://aurum-app.pages.dev'}
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              Launch App <ArrowRight className="ml-1 w-3 h-3" />
-            </Button>
+              <Button
+                size="sm"
+                className="bg-accent hover:bg-accent/90 text-accent-foreground"
+              >
+                Launch App <ArrowRight className="ml-1 w-3 h-3" />
+              </Button>
+            </a>
           </div>
         </div>
       </nav>
@@ -107,13 +116,15 @@ export default function Home() {
               >
                 Get Early Access <ArrowRight className="ml-2 w-4 h-4" />
               </Button>
-              <Button
-                variant="outline"
-                size="lg"
-                onClick={() => window.open('https://aurum-app.pages.dev', '_blank')}
+              <a
+                href={(import.meta.env.VITE_DAPP_URL as string | undefined) || 'https://aurum-app.pages.dev'}
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                Launch App <ArrowRight className="ml-2 w-4 h-4" />
-              </Button>
+                <Button variant="outline" size="lg">
+                  Launch App <ArrowRight className="ml-2 w-4 h-4" />
+                </Button>
+              </a>
             </div>
           </div>
         </div>

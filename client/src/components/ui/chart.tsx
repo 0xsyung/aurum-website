@@ -1,3 +1,4 @@
+// UI primitive wrapper for chart.
 import * as React from "react";
 import * as RechartsPrimitive from "recharts";
 

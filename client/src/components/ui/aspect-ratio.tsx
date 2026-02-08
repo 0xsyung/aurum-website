@@ -1,3 +1,4 @@
+// UI primitive wrapper for aspect ratio.
 import * as AspectRatioPrimitive from "@radix-ui/react-aspect-ratio";
 
 function AspectRatio({
