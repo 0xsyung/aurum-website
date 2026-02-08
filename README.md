@@ -120,13 +120,30 @@ VITE_DAPP_URL=http://localhost:5173
 
 ### Cloudflare Pages (Recommended)
 
-1. Connect your GitHub repository to Cloudflare Pages
-2. Configure build settings:
-   - **Build command**: `pnpm run build`
-   - **Build output directory**: `dist`
-   - **Framework preset**: Vite
-3. Add environment variables in Cloudflare dashboard
-4. Deploy
+This repo is set up for branch-based deployments via GitHub Actions.
+
+**Branch URLs**
+- `main` → `https://<project>.pages.dev`
+- `develop` → `https://develop.<project>.pages.dev`
+
+**Required GitHub Secrets**
+- `CLOUDFLARE_API_TOKEN`
+- `CLOUDFLARE_ACCOUNT_ID`
+- `CLOUDFLARE_PAGES_PROJECT` (the Pages project name)
+
+**Required GitHub Variables**
+- `VITE_DAPP_URL`
+- `VITE_OAUTH_PORTAL_URL` (if used)
+- `VITE_APP_ID` (if used)
+- `VITE_FRONTEND_FORGE_API_URL` (if used)
+- `VITE_FRONTEND_FORGE_API_KEY` (if used)
+
+**Build settings (in Cloudflare Pages UI)**
+- **Build command**: `pnpm install --frozen-lockfile && pnpm build`
+- **Build output directory**: `dist`
+- **Framework preset**: Vite
+
+Once secrets/vars are set, pushes to `main` and `develop` will deploy automatically.
 
 ### Render
 
