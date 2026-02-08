@@ -14,7 +14,8 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  build-and-deploy:
+  deploy-production:
+    if: github.ref_name == 'main'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -34,8 +35,8 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build
-        run: pnpm run build
+      - name: Build client
+        run: pnpm run build:client
         env:
           VITE_DAPP_URL: ${{ vars.VITE_DAPP_URL || 'http://localhost:5173' }}
           VITE_OAUTH_PORTAL_URL: ${{ vars.VITE_OAUTH_PORTAL_URL || '' }}
@@ -43,11 +44,50 @@ jobs:
           VITE_FRONTEND_FORGE_API_URL: ${{ vars.VITE_FRONTEND_FORGE_API_URL || '' }}
           VITE_FRONTEND_FORGE_API_KEY: ${{ vars.VITE_FRONTEND_FORGE_API_KEY || '' }}
 
-      - name: Deploy to Cloudflare Pages
+      - name: Deploy to Cloudflare Pages (production)
         uses: cloudflare/pages-action@v1
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           projectName: ${{ secrets.CLOUDFLARE_PAGES_PROJECT }}
-          directory: dist
+          directory: dist/public
+          branch: ${{ github.ref_name }}
+
+  deploy-preview:
+    if: github.ref_name == 'develop'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "pnpm"
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 10
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build client
+        run: pnpm run build:client
+        env:
+          VITE_DAPP_URL: ${{ vars.VITE_DAPP_URL || 'http://localhost:5173' }}
+          VITE_OAUTH_PORTAL_URL: ${{ vars.VITE_OAUTH_PORTAL_URL || '' }}
+          VITE_APP_ID: ${{ vars.VITE_APP_ID || '' }}
+          VITE_FRONTEND_FORGE_API_URL: ${{ vars.VITE_FRONTEND_FORGE_API_URL || '' }}
+          VITE_FRONTEND_FORGE_API_KEY: ${{ vars.VITE_FRONTEND_FORGE_API_KEY || '' }}
+
+      - name: Deploy to Cloudflare Pages (develop preview)
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: ${{ secrets.CLOUDFLARE_PAGES_PROJECT }}
+          directory: dist/public
           branch: ${{ github.ref_name }}

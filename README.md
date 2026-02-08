@@ -145,6 +145,37 @@ This repo is set up for branch-based deployments via GitHub Actions.
 
 Once secrets/vars are set, pushes to `main` and `develop` will deploy automatically.
 
+**Notes for Cloudflare Pages**
+
+- The workflow publishes the Vite output at `dist/public`. The CI builds the client with `pnpm run build:client`.
+- We set `base` to `/` in `vite.config.ts` so assets are referenced from the site root. Keep `base` as-is only if you intend to serve from a subpath.
+
+Commands (local build / test):
+
+```bash
+# Build client only
+pnpm run build:client
+
+# Serve locally for a production preview
+pnpm run preview
+```
+
+Where to add GitHub Secrets
+---------------------------
+
+1. Open your repository on GitHub.
+2. Go to Settings → Secrets and variables → Actions.
+3. Add the following secrets (see `.github/SECRETS.md` for details):
+   - `CLOUDFLARE_API_TOKEN`
+   - `CLOUDFLARE_ACCOUNT_ID`
+   - `CLOUDFLARE_PAGES_PROJECT`
+
+Production vs Develop deploys
+----------------------------
+
+- Pushes to `main` deploy to your production Pages project.
+- Pushes to `develop` deploy to the same Pages project but are intended for preview/testing. If you want fully isolated previews, consider configuring a separate Pages project and providing an additional secret `CLOUDFLARE_PAGES_PROJECT_PREVIEW`.
+
 ### Render
 
 1. Create a new Static Site on Render
