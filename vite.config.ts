@@ -143,8 +143,13 @@ function vitePluginManusDebugCollector(): Plugin {
 
 const plugins = [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime(), vitePluginManusDebugCollector()];
 
+// Base path defaults to "/" for Cloudflare Pages; allow override for GitHub Pages.
+const basePath =
+  process.env.VITE_BASE_PATH ??
+  (process.env.GITHUB_PAGES === "true" ? "/aurum-website/" : "/");
+
 export default defineConfig({
-  base: '/aurum-website/',
+  base: basePath,
   plugins,
   resolve: {
     alias: {

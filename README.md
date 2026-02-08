@@ -114,6 +114,9 @@ VITE_DAPP_URL=http://localhost:5173
 
 # For production:
 # VITE_DAPP_URL=https://app.aurumlabs.io
+
+# Optional: override Vite base path (useful for GitHub Pages)
+# VITE_BASE_PATH=/aurum-website/
 ```
 
 ## Deployment
