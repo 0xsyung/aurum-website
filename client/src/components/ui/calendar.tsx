@@ -1,3 +1,4 @@
+// UI primitive wrapper for calendar.
 import * as React from "react";
 import {
   ChevronDownIcon,

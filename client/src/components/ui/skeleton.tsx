@@ -1,3 +1,4 @@
+// UI primitive wrapper for skeleton.
 import { cn } from "@/lib/utils";
 
 function Skeleton({ className, ...props }: React.ComponentProps<"div">) {

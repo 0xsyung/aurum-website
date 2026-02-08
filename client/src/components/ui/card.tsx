@@ -1,3 +1,4 @@
+// UI primitive wrapper for card.
 import * as React from "react";
 
 import { cn } from "@/lib/utils";

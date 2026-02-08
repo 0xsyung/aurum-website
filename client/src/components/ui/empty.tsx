@@ -1,3 +1,4 @@
+// UI primitive wrapper for empty.
 import { cva, type VariantProps } from "class-variance-authority";
 
 import { cn } from "@/lib/utils";

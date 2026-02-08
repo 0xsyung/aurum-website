@@ -1,3 +1,4 @@
+// UI primitive wrapper for sonner.
 import { useTheme } from "next-themes";
 import { Toaster as Sonner, type ToasterProps } from "sonner";
 

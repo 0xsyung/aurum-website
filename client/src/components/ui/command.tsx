@@ -1,3 +1,4 @@
+// UI primitive wrapper for command.
 "use client";
 
 import * as React from "react";

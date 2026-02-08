@@ -1,3 +1,4 @@
+// UI primitive wrapper for tabs.
 import * as React from "react";
 import * as TabsPrimitive from "@radix-ui/react-tabs";
 

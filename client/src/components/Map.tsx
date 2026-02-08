@@ -74,18 +74,21 @@
  * - “data-only” → Place, Geometry utilities.
  */
 
+// Provide Google Maps types to TS without importing runtime code.
 /// <reference types="@types/google.maps" />
 
 import { useEffect, useRef } from "react";
 import { usePersistFn } from "@/hooks/usePersistFn";
 import { cn } from "@/lib/utils";
 
+// Extend the window type to include the injected Google Maps namespace.
 declare global {
   interface Window {
     google?: typeof google;
   }
 }
 
+// API key and proxy endpoints come from Vite env configuration.
 const API_KEY = import.meta.env.VITE_FRONTEND_FORGE_API_KEY;
 const FORGE_BASE_URL =
   import.meta.env.VITE_FRONTEND_FORGE_API_URL ||
@@ -93,6 +96,7 @@ const FORGE_BASE_URL =
 const MAPS_PROXY_URL = `${FORGE_BASE_URL}/v1/maps/proxy`;
 
 function loadMapScript() {
+  // Inject the Google Maps script tag through the Forge proxy to avoid CORS/API key exposure issues.
   return new Promise(resolve => {
     const script = document.createElement("script");
     script.src = `${MAPS_PROXY_URL}/maps/api/js?key=${API_KEY}&v=weekly&libraries=marker,places,geocoding,geometry`;
@@ -109,6 +113,7 @@ function loadMapScript() {
   });
 }
 
+// Component props let callers control map center/zoom and get a ready callback.
 interface MapViewProps {
   className?: string;
   initialCenter?: google.maps.LatLngLiteral;
@@ -122,15 +127,18 @@ export function MapView({
   initialZoom = 12,
   onMapReady,
 }: MapViewProps) {
+  // Ref to the DOM container and the Google Maps instance.
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<google.maps.Map | null>(null);
 
   const init = usePersistFn(async () => {
+    // Ensure the script has loaded before creating a map.
     await loadMapScript();
     if (!mapContainer.current) {
       console.error("Map container not found");
       return;
     }
+    // Create the map with base UI controls enabled.
     map.current = new window.google.maps.Map(mapContainer.current, {
       zoom: initialZoom,
       center: initialCenter,
@@ -140,16 +148,19 @@ export function MapView({
       streetViewControl: true,
       mapId: "DEMO_MAP_ID",
     });
+    // Notify callers when the map instance is ready.
     if (onMapReady) {
       onMapReady(map.current);
     }
   });
 
   useEffect(() => {
+    // Initialize only once per component lifecycle.
     init();
   }, [init]);
 
   return (
+    // The map renders itself inside this container.
     <div ref={mapContainer} className={cn("w-full h-[500px]", className)} />
   );
 }

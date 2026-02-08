@@ -1,3 +1,4 @@
+// UI primitive wrapper for collapsible.
 import * as CollapsiblePrimitive from "@radix-ui/react-collapsible";
 
 function Collapsible({
