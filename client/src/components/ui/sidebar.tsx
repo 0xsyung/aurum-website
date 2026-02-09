@@ -1,3 +1,4 @@
+// UI primitive wrapper for sidebar.
 "use client";
 
 import { Button } from "@/components/ui/button";

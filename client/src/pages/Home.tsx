@@ -1,3 +1,4 @@
+// Marketing landing page for Aurum Labs.
 import { Button } from "@/components/ui/button";
 import { ArrowRight, TrendingUp, Lock, Zap, Globe, Rocket } from "lucide-react";
 import { useState } from "react";
@@ -13,10 +14,12 @@ import { useState } from "react";
 const DAPP_URL = import.meta.env.VITE_DAPP_URL || "http://localhost:5173";
 
 export default function Home() {
+  // Local state for waitlist input and temporary feedback.
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
   const handleSubscribe = (e: React.FormEvent) => {
+    // Keep the form from navigating and show a transient success state.
     e.preventDefault();
     if (email) {
       setSubmitted(true);
@@ -26,6 +29,7 @@ export default function Home() {
   };
 
   const handleLaunchApp = () => {
+    // Open the dApp in a new tab with safe window features.
     window.open(DAPP_URL, "_blank", "noopener,noreferrer");
   };
 

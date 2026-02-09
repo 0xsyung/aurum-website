@@ -1,3 +1,4 @@
+// UI primitive wrapper for toggle group.
 "use client";
 
 import * as React from "react";

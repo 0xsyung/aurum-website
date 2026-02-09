@@ -1,3 +1,4 @@
+// Modal dialog used for Manus login CTA.
 import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -9,6 +10,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 
+// Props support controlled/uncontrolled open state and login handler.
 interface ManusDialogProps {
   title?: string;
   logo?: string;
@@ -26,33 +28,40 @@ export function ManusDialog({
   onOpenChange,
   onClose,
 }: ManusDialogProps) {
+  // Internal state allows uncontrolled usage when onOpenChange is not provided.
   const [internalOpen, setInternalOpen] = useState(open);
 
   useEffect(() => {
+    // Sync internal state with prop when component is uncontrolled.
     if (!onOpenChange) {
       setInternalOpen(open);
     }
   }, [open, onOpenChange]);
 
   const handleOpenChange = (nextOpen: boolean) => {
+    // Delegate to parent if controlled; otherwise manage local state.
     if (onOpenChange) {
       onOpenChange(nextOpen);
     } else {
       setInternalOpen(nextOpen);
     }
 
+    // Notify parent about close events.
     if (!nextOpen) {
       onClose?.();
     }
   };
 
   return (
+    // Dialog root manages focus trapping and ARIA attributes.
     <Dialog
       open={onOpenChange ? open : internalOpen}
       onOpenChange={handleOpenChange}
     >
+      {/* Custom-styled dialog content */}
       <DialogContent className="py-5 bg-[#f8f8f7] rounded-[20px] w-[400px] shadow-[0px_4px_11px_0px_rgba(0,0,0,0.08)] border border-[rgba(0,0,0,0.08)] backdrop-blur-2xl p-0 gap-0 text-center">
         <div className="flex flex-col items-center gap-2 p-5 pt-12">
+          {/* Optional brand/logo block */}
           {logo ? (
             <div className="w-16 h-16 bg-white rounded-xl border border-[rgba(0,0,0,0.08)] flex items-center justify-center">
               <img src={logo} alt="Dialog graphic" className="w-10 h-10 rounded-md" />
@@ -65,6 +74,7 @@ export function ManusDialog({
               {title}
             </DialogTitle>
           ) : null}
+          {/* Fixed instruction text for login */}
           <DialogDescription className="text-sm text-[#858481] leading-5 tracking-[-0.154px]">
             Please login with Manus to continue
           </DialogDescription>
